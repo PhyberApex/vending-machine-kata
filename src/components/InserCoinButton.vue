@@ -1,6 +1,6 @@
 <template>
-  <button @click="insertCoins(amount)" type="button">
-    Insert {{ amount }}
+  <button @click="insertCoins(coin)" type="button">
+    Insert {{ coin.name }}
   </button>
 </template>
 <script lang="ts">
@@ -9,7 +9,7 @@ import useState from "../composables/useState";
 
 export default defineComponent({
   props: {
-    amount: { required: true, type: Number },
+    coin: { required: true, type: Object },
   },
   setup() {
     const { currentAmount, insertCoins } = useState();

@@ -1,8 +1,14 @@
 import { reactive, toRefs, computed } from "vue";
 
+const validCoins = Object.freeze([
+  { name: "quarter", value: 0.25 },
+  { name: "dime", value: 0.1 },
+  { name: "nickel", value: 0.05 },
+]);
+
 const state = reactive({
-  currentAmount: 0,
-  coinReturn: 0,
+  currentCoins: [] as Array<{ name: string }>,
+  coinReturn: [] as Array<{ name: string }>,
   soldOutError: false,
   priceError: false as boolean | number,
   products: [
@@ -27,14 +33,31 @@ const state = reactive({
   ],
 });
 
-const insertCoins = (value: number) => {
-  state.currentAmount += value;
+const insertCoins = (insertedCoin: { name: string }) => {
+  const foundValidCoin = validCoins.find(
+    (coin) => coin.name.toLowerCase() === insertedCoin.name.toLowerCase()
+  );
+  if (!foundValidCoin) state.coinReturn.push(insertedCoin);
+  else {
+    state.currentCoins.push(insertedCoin);
+  }
 };
+
+const currentAmount = computed(() => {
+  return Number(
+    state.currentCoins
+      .map(
+        (c) => validCoins.find((vc) => vc.name === c.name.toLowerCase())?.value
+      )
+      .reduce((sum = 0, value = 0) => sum + value, 0)
+      ?.toFixed(2)
+  );
+});
 
 const buyProduct = (id: string) => {
   const foundProduct = state.products.find((p) => p.id === id);
   if (!foundProduct) return;
-  if (foundProduct.price > state.currentAmount) {
+  if (foundProduct.price > currentAmount.value) {
     state.priceError = foundProduct.price;
     return;
   }
@@ -42,9 +65,29 @@ const buyProduct = (id: string) => {
     state.soldOutError = true;
     return;
   }
-  state.coinReturn = state.currentAmount - foundProduct.price;
-  state.currentAmount = 0;
+  let change = Number((currentAmount.value - foundProduct.price).toFixed(2));
+  const validCoinsByValue = [...validCoins].sort((a, b) =>
+    a.value > b.value ? -1 : 1
+  );
+  validCoinsByValue.forEach((coin) => {
+    const amount = Math.floor(change / coin.value);
+    change = Number((change - amount * coin.value).toFixed(2));
+    for (let index = 0; index < amount; index++) {
+      state.coinReturn.push(coin);
+    }
+  });
+  // TODO add exchange
+  state.currentCoins = [];
   foundProduct.stock--;
+};
+
+const returnCoins = () => {
+  state.coinReturn.push(...state.currentCoins);
+  state.currentCoins = [];
+};
+
+const takeReturn = () => {
+  state.coinReturn = [];
 };
 
 const displayMessage = computed(() => {
@@ -60,11 +103,19 @@ const displayMessage = computed(() => {
     }, 2000);
     return `PRICE $${state.priceError}`;
   }
-  if (state.currentAmount === 0) return "INSERT COIN";
-  return `$${state.currentAmount}`;
+  if (currentAmount.value === 0) return "INSERT COIN";
+  return `$${currentAmount.value}`;
 });
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default () => {
-  return { ...toRefs(state), insertCoins, buyProduct, displayMessage };
+  return {
+    ...toRefs(state),
+    insertCoins,
+    buyProduct,
+    displayMessage,
+    currentAmount,
+    returnCoins,
+    takeReturn,
+  };
 };
