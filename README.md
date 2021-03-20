@@ -83,3 +83,8 @@ it will display the amount of money remaining in the machine or INSERT COIN if t
 
 ~~When the machine is not able to make change with the money in the machine for any of the items that it sells, it will
 display EXACT CHANGE ONLY instead of INSERT COIN.~~
+
+XState
+------
+
+Trying to convert the app to use xstate.
