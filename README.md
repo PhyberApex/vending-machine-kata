@@ -1,4 +1,6 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/b8fea99f-9446-445b-bfff-60a442a98854/deploy-status)](https://app.netlify.com/sites/infallible-swanson-df28ee/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/b8fea99f-9446-445b-bfff-60a442a98854/deploy-status)](https://app.netlify.com/sites/vending-machine-kata/deploys)
+
+<a href="https://vending-machine-kata.netlify.app"><strong>view live</strong></a>
 
 Vending Machine Kata
 ====================
