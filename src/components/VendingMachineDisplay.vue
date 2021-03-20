@@ -1,14 +1,19 @@
 <template>
-  <h1>{{ displayMessage }}</h1>
+  <h1>
+    {{ displayMessage }} {{ state.matches("active") }}
+    {{ state.context.count }}
+  </h1>
+  <button type="button" @click="send('TOGGLE')">SEND IT</button>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
-import useState from "../composables/useState";
+import useState, { useToggleMachine } from "../composables/useState";
 
 export default defineComponent({
   setup() {
     const { displayMessage } = useState();
-    return { displayMessage };
+    const { state, send } = useToggleMachine();
+    return { displayMessage, state, send };
   },
 });
 </script>

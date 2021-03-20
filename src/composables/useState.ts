@@ -1,10 +1,31 @@
+import { useService } from "@xstate/vue";
 import { reactive, toRefs, computed } from "vue";
+import { Machine, assign, interpret } from "xstate";
 
 const validCoins = Object.freeze([
   { name: "quarter", value: 0.25 },
   { name: "dime", value: 0.1 },
   { name: "nickel", value: 0.05 },
 ]);
+
+const toggleMachine = Machine({
+  id: "toggle",
+  initial: "inactive",
+  context: {
+    count: 0,
+  },
+  states: {
+    inactive: {
+      on: { TOGGLE: "active" },
+    },
+    active: {
+      entry: assign({ count: (ctx) => ctx.count + 1 }),
+      on: { TOGGLE: "inactive" },
+    },
+  },
+});
+
+const toggleService = interpret(toggleMachine).start();
 
 const state = reactive({
   currentCoins: [] as Array<{ name: string }>,
@@ -118,4 +139,8 @@ export default () => {
     returnCoins,
     takeReturn,
   };
+};
+
+export const useToggleMachine = () => {
+  return useService(toggleService);
 };

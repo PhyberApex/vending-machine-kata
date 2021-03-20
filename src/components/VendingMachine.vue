@@ -16,13 +16,15 @@
   RETURN: {{ coinReturn }}
   <br />
   <button type="button" @click="takeReturn">TAKE IT</button>
+  <button type="button" @click="send('TOGGLE')">SEND IT</button>
+  {{ xstate.matches("active") }} {{ xstate.context.count }}
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
 import VendingMachineDisplay from "./VendingMachineDisplay.vue";
 import InserCoinButton from "./InserCoinButton.vue";
 import ProductButton from "./ProductButton.vue";
-import useState from "../composables/useState";
+import useState, { useToggleMachine } from "../composables/useState";
 import ReturnCoinsButton from "./ReturnCoinsButton.vue";
 
 export default defineComponent({
@@ -34,7 +36,9 @@ export default defineComponent({
   },
   setup() {
     const { products, coinReturn, takeReturn } = useState();
-    return { products, coinReturn, takeReturn };
+    const { state: xstate, send } = useToggleMachine();
+
+    return { products, coinReturn, takeReturn, xstate, send };
   },
 });
 </script>
