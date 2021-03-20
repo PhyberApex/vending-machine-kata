@@ -48,7 +48,6 @@ const buyProduct = (id: string) => {
 };
 
 const displayMessage = computed(() => {
-  if (state.currentAmount === 0) return "INSERT COIN";
   if (state.soldOutError) {
     setTimeout(() => {
       state.soldOutError = false;
@@ -61,6 +60,7 @@ const displayMessage = computed(() => {
     }, 2000);
     return `PRICE $${state.priceError}`;
   }
+  if (state.currentAmount === 0) return "INSERT COIN";
   return `$${state.currentAmount}`;
 });
 
