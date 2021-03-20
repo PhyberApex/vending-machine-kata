@@ -8,8 +8,9 @@ Vending Machine Kata
 In this exercise you will build the brains of a vending machine.  It will accept money, make change, maintain
 inventory, and dispense products.  All the things that you might expect a vending machine to accomplish.
 
-The point of this kata to to provide a larger than trivial exercise that can be used to practice TDD.  A significant
-portion of the effort will be in determining what tests should be written and, more importantly, written next.
+The point of this kata to to provide a larger than trivial exercise that can be used to practice ~~TDD~~ TypeScript and Vue3 composition api.  ~~A significant
+portion of the effort will be in determining what tests should be written and, more importantly, written next.~~ Also this project provides some expierence with GitHub and conventional commits.
+
 
 Features
 ========
@@ -73,12 +74,12 @@ _So that I can select another item_
 When the item selected by the customer is out of stock, the machine displays SOLD OUT.  If the display is checked again,
 it will display the amount of money remaining in the machine or INSERT COIN if there is no money in the machine.
 
-Exact Change Only
+~~Exact Change Only~~
 -----------------
 
-_As a customer_  
-_I want to be told when exact change is required_  
-_So that I can determine if I can buy something with the money I have before inserting it_  
+~~_As a customer_~~  
+~~_I want to be told when exact change is required_~~  
+~~_So that I can determine if I can buy something with the money I have before inserting it_~~  
 
-When the machine is not able to make change with the money in the machine for any of the items that it sells, it will
-display EXACT CHANGE ONLY instead of INSERT COIN.
+~~When the machine is not able to make change with the money in the machine for any of the items that it sells, it will
+display EXACT CHANGE ONLY instead of INSERT COIN.~~
