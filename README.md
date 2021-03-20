@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/b8fea99f-9446-445b-bfff-60a442a98854/deploy-status)](https://app.netlify.com/sites/infallible-swanson-df28ee/deploys)
+
 Vending Machine Kata
 ====================
 
