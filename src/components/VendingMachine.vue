@@ -14,7 +14,7 @@ import { defineComponent } from "vue";
 import VendingMachineDisplay from "./VendingMachineDisplay.vue";
 import InserCoinButton from "./InserCoinButton.vue";
 import ProductButton from "./ProductButton.vue";
-import useState from "@/composables/useState";
+import useState from "../composables/useState";
 
 export default defineComponent({
   components: { VendingMachineDisplay, InserCoinButton, ProductButton },

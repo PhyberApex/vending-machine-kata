@@ -3,7 +3,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
-import useState from "@/composables/useState";
+import useState from "../composables/useState";
 
 export default defineComponent({
   setup() {
