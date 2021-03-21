@@ -2,6 +2,8 @@
 
 <a href="https://vending-machine-kata.netlify.app"><strong>view live</strong></a>
 
+PINIA TIME
+
 Vending Machine Kata
 ====================
 
